@@ -67,7 +67,7 @@ void _run(CliArguments parsedArgs) {
   try {
     File iconsJson = parsedArgs.fontJsonFile;
     final String rawJson = iconsJson.readAsStringSync();
-    final selection = SelectionModel.fromJson(
+    final selection = Selection.fromJson(
       jsonDecode(rawJson) as Map<String, dynamic>,
     );
 

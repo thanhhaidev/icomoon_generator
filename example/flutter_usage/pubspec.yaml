@@ -1,0 +1,33 @@
+name: icomoon_generator_example
+description: Flutter icomoon generator example
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  icomoon_generator:
+    path: ../../
+
+flutter:
+  fonts:
+    - family: Icomoon
+      fonts:
+        - asset: fonts/icomoon.tff
+
+icomoon_generator:
+  input_font_json_file: fonts/selection.json
+  output_class_file: lib/ui/icons.dart
+
+  class_name: UiIcons
+  format: true
+
+  verbose: false

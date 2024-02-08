@@ -1,31 +1,32 @@
-class SelectionModel {
-  final List<IcomoonIcon> icons;
+class Selection {
+  final List<Icon> icons;
 
-  SelectionModel({
+  Selection({
     required this.icons,
   });
 
-  factory SelectionModel.fromJson(Map<String, dynamic> json) {
+  factory Selection.fromJson(Map<String, dynamic> json) {
     final icons = json['icons'] as List<dynamic>;
 
-    return SelectionModel(
-        icons: icons
-            .map((icon) => IcomoonIcon.fromJson(icon as Map<String, dynamic>))
-            .toList());
+    return Selection(
+      icons: icons
+          .map((icon) => Icon.fromJson(icon as Map<String, dynamic>))
+          .toList(),
+    );
   }
 }
 
-class IcomoonIcon {
+class Icon {
   final IconProperties properties;
 
-  IcomoonIcon({
+  Icon({
     required this.properties,
   });
 
-  factory IcomoonIcon.fromJson(Map<String, dynamic> json) {
+  factory Icon.fromJson(Map<String, dynamic> json) {
     final properties = json['properties'] as Map<String, dynamic>;
 
-    return IcomoonIcon(properties: IconProperties.fromJson(properties));
+    return Icon(properties: IconProperties.fromJson(properties));
   }
 }
 

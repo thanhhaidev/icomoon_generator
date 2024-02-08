@@ -14,7 +14,7 @@ The package is written fully in Dart and doesn't require any external dependency
 $ flutter pub add --dev icomoon_generator
 
 # And it's ready to go:
-$ flutter pub run icomoon_generator:generate <input-json-file> <output-class-file> [options]
+$ flutter pub run icomoon_generator:generate <input-font-json-file> <output-class-file> [options]
 ```
 
 ### or [Globally activate][] the package:
@@ -25,14 +25,14 @@ $ flutter pub run icomoon_generator:generate <input-json-file> <output-class-fil
 $ pub global activate icomoon_generator
 
 # And it's ready to go:
-$ icomoon_generator <input-svg-dir> <output-font-file> [options]
+$ icomoon_generator <input-font-json-file> <output-font-file> [options]
 ```
 
 Required positional arguments:
-- `<input-svg-dir>`
-Path to the input directory that contains .svg files.
+- `<input-font-json-file>`
+Path to the input font json file. Should have .json extension.
 - `<output-class-file>`
-Path to the output class file. Should have .json extension.
+Path to the output class file. Should have .dart extension.
 
 Flutter class options:
 - `-c` or `--class-name=<name>`
@@ -45,7 +45,7 @@ Format dart generated code.
 Other options:
 - `-z` or `--config-file=<path>`
 Path to icomoon_generator yaml configuration file.
-pubspec.yaml and icon_font.yaml files are used by default.
+pubspec.yaml and icomoon_generator.yaml files are used by default.
 - `-v` or `--verbose`
 Display every logging message.
 - `-h` or `--help`
@@ -73,7 +73,7 @@ icomoon_generator's configuration can also be placed in yaml file.
 Add _icomoon_generator_ section to either `pubspec.yaml` or `icomoon_generator.yaml` file:
 
 ```yaml
-icon_font:
+icomoon_generator:
   input_json_file: "fonts/selection.json"
   output_class_file: "lib/my_icons.dart"
   

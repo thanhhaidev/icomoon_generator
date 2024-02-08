@@ -3,8 +3,112 @@ import 'package:recase/recase.dart';
 import 'package:icomoon_generator/src/common/constant.dart';
 import 'package:icomoon_generator/src/common/selection.dart';
 
+const _kUnnamedIconName = 'unnamed';
 const _kDefaultIndent = 2;
 const _kDefaultClassName = 'UiIcons';
+final _iconNameRegex = RegExp(r"[^A-Za-z0-9_]");
+
+const _kDartReserved = [
+  'abstract',
+  'deferred',
+  'if',
+  'super',
+  'as ',
+  'do',
+  'implements',
+  'switch',
+  'assert',
+  'dynamic',
+  'import',
+  'sync',
+  'async',
+  'else',
+  'in',
+  'this',
+  'enum',
+  'is',
+  'throw',
+  'await',
+  'export',
+  'library',
+  'true',
+  'break',
+  'external',
+  'new',
+  'try',
+  'case',
+  'extends',
+  'null',
+  'typedef',
+  'catch',
+  'factory',
+  'operator',
+  'var',
+  'class',
+  'false',
+  'part',
+  'void',
+  'const',
+  'final',
+  'rethrow',
+  'while',
+  'continue',
+  'finally',
+  'return',
+  'with',
+  'covariant',
+  'for',
+  'set',
+  'yield',
+  'default',
+  'get',
+  'static',
+  'yield'
+];
+
+/// A map which adjusts icon ids starting with a number
+///
+/// Some icons cannot keep their id as identifier, as dart does not allow
+/// numbers as the beginning of a variable names. The chosen solution is, to
+/// write those parts out.
+const Map<String, String> _kNameAdjustments = {
+  "500px": "fiveHundredPx",
+  "360-degrees": "threeHundredSixtyDegrees",
+  "1": "one",
+  "2": "two",
+  "3": "three",
+  "4": "four",
+  "5": "five",
+  "6": "six",
+  "7": "seven",
+  "8": "eight",
+  "9": "nine",
+  "0": "zero",
+  "42-group": "fortyTwoGroup",
+  "00": "zeroZero",
+  // found in aliases
+  "100": "hundred",
+};
+
+/// Returns a normalized version of [iconName] which can be used as const name
+///
+/// [nameAdjustments] lists some icons which need special treatment to be valid
+/// const identifiers, as they cannot start with a number.
+String normalizeIconName(String iconName) {
+  iconName = _kNameAdjustments[iconName] ?? iconName;
+  return iconName.camelCase;
+}
+
+String convertIconName(String name) {
+  String out = name.replaceAll(_iconNameRegex, '_');
+  for (String r in _kDartReserved) {
+    if (out == r) {
+      out = "${out}_icon";
+      break;
+    }
+  }
+  return out;
+}
 
 /// Removes any characters that are not valid for variable name.
 ///
@@ -27,12 +131,54 @@ class FlutterClassGenerator {
     int? indent,
   })  : _indent = ' ' * (indent ?? _kDefaultIndent),
         _className = _getVarName(className ?? _kDefaultClassName),
+        _iconVarNames = _generateVariableNames(iconList),
         _package = package?.isEmpty ?? true ? null : package;
 
-  final List<IcomoonIcon> iconList;
+  final List<Icon> iconList;
   final String _className;
   final String _indent;
   final String? _package;
+  final List<String> _iconVarNames;
+
+  static List<String> _generateVariableNames(List<Icon> iconList) {
+    final iconNameSet = <String>{};
+
+    return iconList.map((icon) {
+      final properties = icon.properties;
+      final name = properties.name;
+      final baseName = convertIconName(normalizeIconName(name)).camelCase;
+      final usingDefaultName = baseName.isEmpty;
+
+      var variableName = usingDefaultName ? _kUnnamedIconName : baseName;
+
+      // Handling same names by adding numeration to them
+      if (iconNameSet.contains(variableName)) {
+        // If name already contains numeration, then splitting it
+        final countMatch = RegExp(r'^(.*)_([0-9]+)$').firstMatch(variableName);
+
+        var variableNameCount = 1;
+        var variableWithoutCount = variableName;
+
+        if (countMatch != null) {
+          variableNameCount = int.parse(countMatch.group(2)!);
+          variableWithoutCount = countMatch.group(1)!;
+        }
+
+        String variableNameWithCount;
+
+        do {
+          variableNameWithCount =
+              '${variableWithoutCount}_${++variableNameCount}';
+        } while (iconNameSet.contains(variableNameWithCount));
+
+        variableName = variableNameWithCount;
+      }
+
+      iconNameSet.add(variableName);
+
+      return variableName;
+    }).toList();
+  }
 
   bool get _hasPackage => _package != null;
 
@@ -45,7 +191,7 @@ class FlutterClassGenerator {
 
     final iconName = properties.name;
     final hexCode = properties.code.toRadixString(16);
-    final varName = ReCase(iconName).camelCase;
+    final varName = _iconVarNames[index];
 
     final posParamList = [
       'fontFamily: iconFontFamily',

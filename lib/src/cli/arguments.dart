@@ -9,7 +9,7 @@ import '../utils/enum_class.dart';
 import '../utils/logger.dart';
 import 'formatter.dart';
 
-const _kDefaultConfigPathList = ['pubspec.yaml', 'icon_font.yaml'];
+const _kDefaultConfigPathList = ['pubspec.yaml', 'icomoon_generator.yaml'];
 const _kPositionalArguments = [CliArgument.fontJsonFile, CliArgument.classFile];
 
 const _kArgAllowedTypes = <CliArgument, List<Type>>{
@@ -159,7 +159,7 @@ MapEntry<CliArgument, Object?>? _mapConfigKeyEntry(
 /// Parses config file.
 ///
 /// Returns an instance of [CliArguments] containing all parsed data or null,
-/// if 'icon_font_generator' key is not present in config file.
+/// if 'icomoon_generator' key is not present in config file.
 Map<CliArgument, Object?>? parseConfig(String config) {
   final yamlMap = loadYaml(config) as Object?;
 
@@ -167,7 +167,7 @@ Map<CliArgument, Object?>? parseConfig(String config) {
     return null;
   }
 
-  final iconFontGeneratoryamlmap = yamlMap['icon_font'] as Object?;
+  final iconFontGeneratoryamlmap = yamlMap['icomoon_generator'] as Object?;
 
   if (iconFontGeneratoryamlmap is! YamlMap) {
     return null;
@@ -180,7 +180,7 @@ Map<CliArgument, Object?>? parseConfig(String config) {
 }
 
 /// Parses argument list and config file, validates parsed data.
-/// Config is used, if it contains 'icon_font_generator' section.
+/// Config is used, if it contains 'icomoon_generator' section.
 ///
 /// Throws [CliHelpException], if 'help' option is present.
 /// Throws [CliArgumentException], if there is an error in arg parsing.

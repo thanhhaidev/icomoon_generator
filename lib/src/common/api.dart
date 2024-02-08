@@ -10,7 +10,7 @@ import 'package:icomoon_generator/src/utils/flutter_class_gen.dart';
 ///
 /// Returns content of a class file.
 String generateFlutterClass({
-  required List<IcomoonIcon> iconsList,
+  required List<Icon> iconsList,
   String? className,
   String? familyName,
   String? package,
