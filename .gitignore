@@ -30,6 +30,3 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 build/
-
-my_*
-selection.json

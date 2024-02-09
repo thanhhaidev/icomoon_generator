@@ -57,15 +57,15 @@ void _run(CliArguments parsedArgs) {
         'overwriting it');
   }
 
-  if (!parsedArgs.fontJsonFile.existsSync()) {
-    logger.e('Font file does not exist (${parsedArgs.fontJsonFile.path})');
+  if (!parsedArgs.jsonFile.existsSync()) {
+    logger.e('Font file does not exist (${parsedArgs.jsonFile.path})');
     exit(66);
   } else {
-    logger.t('Font file: ${parsedArgs.fontJsonFile.path} found');
+    logger.t('Font file: ${parsedArgs.jsonFile.path} found');
   }
 
   try {
-    File iconsJson = parsedArgs.fontJsonFile;
+    File iconsJson = parsedArgs.jsonFile;
     final String rawJson = iconsJson.readAsStringSync();
     final selection = Selection.fromJson(
       jsonDecode(rawJson) as Map<String, dynamic>,

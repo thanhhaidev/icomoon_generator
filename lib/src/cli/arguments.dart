@@ -10,10 +10,10 @@ import '../utils/logger.dart';
 import 'formatter.dart';
 
 const _kDefaultConfigPathList = ['pubspec.yaml', 'icomoon_generator.yaml'];
-const _kPositionalArguments = [CliArgument.fontJsonFile, CliArgument.classFile];
+const _kPositionalArguments = [CliArgument.jsonFile, CliArgument.classFile];
 
 const _kArgAllowedTypes = <CliArgument, List<Type>>{
-  CliArgument.fontJsonFile: [String],
+  CliArgument.jsonFile: [String],
   CliArgument.classFile: [String],
   CliArgument.className: [String],
   CliArgument.fontPackage: [String],
@@ -36,7 +36,7 @@ const kOptionNames = EnumClass<CliArgument, String>({
 });
 
 const kConfigKeys = EnumClass<CliArgument, String>({
-  CliArgument.fontJsonFile: 'input_font_json_file',
+  CliArgument.jsonFile: 'input_json_file',
   CliArgument.classFile: 'output_class_file',
   CliArgument.className: 'class_name',
   CliArgument.fontPackage: 'package',
@@ -51,10 +51,10 @@ final Map<CliArgument, String> argumentNames = {
 
 enum CliArgument {
   // Required
-  fontJsonFile,
+  jsonFile,
+  classFile,
 
   // Class-related
-  classFile,
   className,
   fontPackage,
   format,
@@ -70,7 +70,7 @@ enum CliArgument {
 /// Contains all the parsed data for the application.
 class CliArguments {
   CliArguments(
-    this.fontJsonFile,
+    this.jsonFile,
     this.classFile,
     this.className,
     this.fontPackage,
@@ -87,7 +87,7 @@ class CliArguments {
   /// or if argument has wrong type.
   factory CliArguments.fromMap(Map<CliArgument, Object?> map) {
     return CliArguments(
-      map[CliArgument.fontJsonFile] as File,
+      map[CliArgument.jsonFile] as File,
       map[CliArgument.classFile] as File,
       map[CliArgument.className] as String?,
       map[CliArgument.fontPackage] as String?,
@@ -97,7 +97,7 @@ class CliArguments {
     );
   }
 
-  final File fontJsonFile;
+  final File jsonFile;
   final File classFile;
   final String? className;
   final String? fontPackage;
@@ -244,11 +244,11 @@ extension CliArgumentMapExtension on Map<CliArgument, Object?> {
   void _validateFormatted() {
     final args = this;
 
-    final fontJsonFile = args[CliArgument.fontJsonFile] as File?;
+    final jsonFile = args[CliArgument.jsonFile] as File?;
     final classFile = args[CliArgument.classFile] as File?;
 
-    if (fontJsonFile == null) {
-      throw CliArgumentException('The input font json file is not specified.');
+    if (jsonFile == null) {
+      throw CliArgumentException('The input json file is not specified.');
     }
 
     if (classFile == null) {

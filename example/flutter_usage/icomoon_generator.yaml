@@ -1,5 +1,5 @@
 icomoon_generator:
-  input_font_json_file: fonts/selection.json
+  input_json_file: fonts/selection.json
   output_class_file: lib/ui/icons.dart
 
   class_name: UiIcons

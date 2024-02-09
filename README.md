@@ -14,7 +14,7 @@ The package is written fully in Dart and doesn't require any external dependency
 $ flutter pub add --dev icomoon_generator
 
 # And it's ready to go:
-$ flutter pub run icomoon_generator:generate <input-font-json-file> <output-class-file> [options]
+$ flutter pub run icomoon_generator:generate <input-json-file> <output-class-file> [options]
 ```
 
 ### or [Globally activate][] the package:
@@ -25,12 +25,12 @@ $ flutter pub run icomoon_generator:generate <input-font-json-file> <output-clas
 $ pub global activate icomoon_generator
 
 # And it's ready to go:
-$ icomoon_generator <input-font-json-file> <output-font-file> [options]
+$ icomoon_generator <input-json-file> <output-class-file> [options]
 ```
 
 Required positional arguments:
-- `<input-font-json-file>`
-Path to the input font json file. Should have .json extension.
+- `<input-json-file>`
+Path to the input font file. Should have .json extension.
 - `<output-class-file>`
 Path to the output class file. Should have .dart extension.
 
@@ -86,6 +86,39 @@ icomoon_generator:
 
 `input_json_file` and `output_class_file` keys are required.
 It's possible to specify any other config file by using `--config-file` option.
+
+## Structure `input_json_file` key
+```json
+{
+  "icons": [
+    {
+      "properties": {
+        "name": "home",
+        "code": 01
+      }
+    },
+    {
+      "properties": {
+        "name": "home2",
+        "code": 02
+      }
+    },
+    {
+      "properties": {
+        "name": "home3",
+        "code": 03
+      }
+    },
+    {
+      "properties": {
+        "name": "office",
+        "code": 04
+      }
+    }
+  ]
+}
+```
+
 
 ## Contributing
 

@@ -5,7 +5,7 @@ import 'arguments.dart';
 typedef CliArgumentFormatter = Object Function(String arg);
 
 const _kArgumentFormatters = <CliArgument, CliArgumentFormatter>{
-  CliArgument.fontJsonFile: File.new,
+  CliArgument.jsonFile: File.new,
   CliArgument.classFile: File.new,
   CliArgument.configFile: File.new,
 };
