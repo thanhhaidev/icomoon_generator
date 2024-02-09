@@ -1,0 +1,1 @@
+See example usage in [flutter_usage](https://github.com/thanhhaidev/icomoon_generator/tree/main/example/flutter_usage)
