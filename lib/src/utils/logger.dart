@@ -24,7 +24,6 @@ extension LoggerExt on Logger {
     _loggedOnce.add(hashCode);
   }
 
-  // ignore: use_setters_to_change_properties
   void setFilterLevel(Level level) {
     _filter.level = level;
   }

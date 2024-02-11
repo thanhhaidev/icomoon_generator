@@ -2,7 +2,7 @@ name: icomoon_generator
 description: >-
   A Dart package that generates Flutter-compatible class.
   This class contains static const IconData fields for each icon in your IcoMoon selection.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/thanhhaidev/icomoon_generator
 
 environment:

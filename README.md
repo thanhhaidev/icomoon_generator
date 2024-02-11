@@ -30,7 +30,7 @@ $ icomoon_generator <input-json-file> <output-class-file> [options]
 
 Required positional arguments:
 - `<input-json-file>`
-Path to the input font file. Should have .json extension.
+Path to the input json file. Should have .json extension.
 - `<output-class-file>`
 Path to the output class file. Should have .dart extension.
 

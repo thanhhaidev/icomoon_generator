@@ -1,3 +1,9 @@
+## 0.0.5
+* Public API utils
+* Add 2 fields to `FlutterClassGenerator`:
+  * `familyName` is font's family name to use in IconData. (Default is `Icomoon`)
+  * `fontFileName` is font file's name. Used in generated docs for class. (Default is `icomoon.ttf`)
+
 ## 0.0.4
 * Update README.md
 * Change key `input_font_json_file` to `input_json_file` in pubspec.yaml and icomoon_generator.yaml

@@ -6,6 +6,8 @@ import 'package:icomoon_generator/src/common/selection.dart';
 const _kUnnamedIconName = 'unnamed';
 const _kDefaultIndent = 2;
 const _kDefaultClassName = 'UiIcons';
+const _kDefaultFontFileName = 'icomoon.ttf';
+const _kDefaultFontFamily = 'Icomoon';
 final _iconNameRegex = RegExp(r"[^A-Za-z0-9_]");
 
 const _kDartReserved = [
@@ -122,20 +124,28 @@ String _getVarName(String string) {
 class FlutterClassGenerator {
   /// * [glyphList] is a list of non-default glyphs.
   /// * [className] is generated class' name (preferably, in PascalCase).
+  /// * [familyName] is font's family name to use in IconData.
   /// * [package] is the name of a font package. Used to provide a font through package dependency.
+  /// * [fontFileName] is font file's name. Used in generated docs for class.
   /// * [indent] is a number of spaces in leading indentation for class' members. Defaults to 2.
   FlutterClassGenerator(
     this.iconList, {
     String? className,
+    String? familyName,
+    String? fontFileName,
     String? package,
     int? indent,
   })  : _indent = ' ' * (indent ?? _kDefaultIndent),
         _className = _getVarName(className ?? _kDefaultClassName),
+        _familyName = familyName ?? _kDefaultFontFamily,
+        _fontFileName = fontFileName ?? _kDefaultFontFileName,
         _iconVarNames = _generateVariableNames(iconList),
         _package = package?.isEmpty ?? true ? null : package;
 
   final List<Icon> iconList;
   final String _className;
+  final String _familyName;
+  final String _fontFileName;
   final String _indent;
   final String? _package;
   final List<String> _iconVarNames;
@@ -241,9 +251,9 @@ import 'package:flutter/widgets.dart';
 /// ```yaml
 /// flutter:
 ///   fonts:
-///     - family: Icomoon
+///     - family: $_familyName
 ///       fonts:
-///         - asset: fonts/icomoon.ttf
+///         - asset: fonts/$_fontFileName
 /// ```
 class $_className {
 $classContentString
