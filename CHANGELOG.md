@@ -1,3 +1,6 @@
+## 0.0.6
+* Add Document for public API (`EnumClass`)
+
 ## 0.0.5
 * Public API utils
 * Add 2 fields to `FlutterClassGenerator`:
