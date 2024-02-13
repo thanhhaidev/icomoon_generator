@@ -10,7 +10,10 @@
 ///
 /// The `Selection` and `Icon` classes have a factory constructor that takes a JSON object and returns a new instance of the class.
 class Selection {
+  /// The name of the selection.
   final String name;
+
+  /// A list of icons.
   final List<Icon> icons;
 
   /// Constructor
@@ -59,7 +62,10 @@ class Icon {
 /// It has a `name` and a `code`.
 /// It has a factory constructor that takes a JSON object and returns a new instance of the class.
 class IconProperties {
+  /// The name of the icon.
   final String name;
+
+  /// The code of the icon.
   final int code;
 
   /// Constructor

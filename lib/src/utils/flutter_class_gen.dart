@@ -142,6 +142,7 @@ class FlutterClassGenerator {
         _iconVarNames = _generateVariableNames(iconList),
         _package = package?.isEmpty ?? true ? null : package;
 
+  /// A list of icons to generate.
   final List<Icon> iconList;
   final String _className;
   final String _familyName;

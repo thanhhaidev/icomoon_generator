@@ -1,3 +1,7 @@
+## 0.0.9
+* Add Document for model (`Selection`)
+* Update README.md for example project
+
 ## 0.0.8
 * Add Document for model (`Icon`)
 * Update CHANGELOG.md

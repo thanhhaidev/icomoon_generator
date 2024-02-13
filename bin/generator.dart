@@ -85,6 +85,7 @@ void _run(CliArguments parsedArgs) {
     parsedArgs.classFile.writeAsStringSync(classString);
   } on Object catch (e) {
     logger.e(e.toString());
+    exit(65);
   }
 
   logger.i('Generated in ${stopwatch.elapsedMilliseconds}ms');
