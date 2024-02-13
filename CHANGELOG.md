@@ -1,3 +1,11 @@
+## 0.0.8
+* Add Document for model (`Icon`)
+* Update CHANGELOG.md
+
+## 0.0.7
+* Add Document for public API and model (`EnumClass`, `Selection`)
+* Update Example project
+
 ## 0.0.6
 * Add Document for public API (`EnumClass`)
 

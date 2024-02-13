@@ -122,7 +122,7 @@ String _getVarName(String string) {
 
 /// A helper for generating Flutter-compatible class with IconData objects for each icon.
 class FlutterClassGenerator {
-  /// * [glyphList] is a list of non-default glyphs.
+  /// * [iconList] is a list of non-default glyphs.
   /// * [className] is generated class' name (preferably, in PascalCase).
   /// * [familyName] is font's family name to use in IconData.
   /// * [package] is the name of a font package. Used to provide a font through package dependency.

@@ -33,13 +33,20 @@ class Selection {
   }
 }
 
+/// Icon model
+/// This class is used to represent an icon.
+/// It has a `properties` object.
 class Icon {
+  /// Icon properties
+  /// This class is used to represent the properties of an icon.
   final IconProperties properties;
 
+  /// Constructor
   Icon({
     required this.properties,
   });
 
+  /// Factory constructor
   factory Icon.fromJson(Map<String, dynamic> json) {
     final properties = json['properties'] as Map<String, dynamic>;
 
