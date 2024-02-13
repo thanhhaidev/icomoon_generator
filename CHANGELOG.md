@@ -1,3 +1,6 @@
+## 1.0.0
+* Done with the first stable version
+
 ## 0.0.9
 * Add Document for model (`Selection`)
 * Update README.md for example project

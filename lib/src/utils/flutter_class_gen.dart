@@ -101,6 +101,18 @@ String normalizeIconName(String iconName) {
   return iconName.camelCase;
 }
 
+/// Converts the icon name to a valid variable name.
+///
+/// If the name is a reserved keyword, it will append `_icon` to the name.
+///
+/// Returns a new string.
+///
+/// Example:
+///
+/// ```dart
+/// final iconName = convertIconName('class');
+/// print(iconName); // class_icon
+/// ```
 String convertIconName(String name) {
   String out = name.replaceAll(_iconNameRegex, '_');
   for (String r in _kDartReserved) {
