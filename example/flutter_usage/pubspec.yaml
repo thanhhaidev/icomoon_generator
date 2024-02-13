@@ -21,7 +21,7 @@ flutter:
   fonts:
     - family: Icomoon
       fonts:
-        - asset: fonts/icomoon.tff
+        - asset: fonts/icomoon.ttf
 
 icomoon_generator:
   input_json_file: fonts/selection.json
