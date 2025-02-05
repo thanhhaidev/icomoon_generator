@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Fix analysis issue
+
 ## 1.0.2
 
 - Bump version collection 1.17.0 -> 1.19.0
