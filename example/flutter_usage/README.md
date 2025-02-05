@@ -1,34 +1,41 @@
 # Example
 
 File structure:
+
 ```
 project
 └───fonts
 │   │   icomoon.tff
 │   │   selection.json
-│   
+│
 └───lib
 │   │   ui
 │   │   main.dart
 ```
+
 Run command:
+
 ```
-$ flutter pub run icomoon_generator:generator
+$ dart run icomoon_generator:generator
 ```
+
 Generates:
+
 ```
 project
 └───fonts
 │   │   icomoon.tff
 │   │   selection.json
-│   
+│
 └───lib
 │   └───ui
 │   |   │   icons.dart
 │   │
 │   │   main.dart
 ```
+
 Generated icons.dart:
+
 ```dart
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
@@ -52,10 +59,11 @@ class UiIcons {
   static const IconData office = IconData(0xe903, fontFamily: iconFontFamily);
 }
 ```
-And also need add font to pubspec.yaml:
-```yaml
-...
 
+And also need add font to pubspec.yaml:
+
+```yaml
+---
 flutter:
   fonts:
     - family: Icomoon
