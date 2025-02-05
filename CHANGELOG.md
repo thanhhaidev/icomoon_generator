@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Bump version collection 1.17.0 -> 1.19.0
+- Fix lint whereNotNull() -> nonNulls
+
 ## 1.0.1
 
 - Bump version dependency
