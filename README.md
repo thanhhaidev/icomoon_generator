@@ -6,7 +6,10 @@ The icomoon_generator package provides an easy way to generate Flutter-compatibl
 
 The package is written fully in Dart and doesn't require any external dependency.
 
-## Font generation
+## Generate Flutter icons
+
+The generator creates the Dart `IconData` class. The IcoMoon `.ttf` font is
+downloaded separately and must be declared as a Flutter asset.
 
 ### Install via dev dependency
 
@@ -14,7 +17,7 @@ The package is written fully in Dart and doesn't require any external dependency
 $ flutter pub add --dev icomoon_generator
 
 # And it's ready to go:
-$ flutter pub run icomoon_generator:generate <input-json-file> <output-class-file> [options]
+$ dart run icomoon_generator:generator <input-json-file> <output-class-file> [options]
 ```
 
 ### or [Globally activate][] the package:
@@ -31,7 +34,7 @@ $ icomoon_generator <input-json-file> <output-class-file> [options]
 Required positional arguments:
 
 - `<input-json-file>`
-  Path to the input json file. Should have .json extension.
+  Path to the local input JSON file. Should have a `.json` extension.
 - `<output-class-file>`
   Path to the output class file. Should have .dart extension.
 
@@ -41,6 +44,10 @@ Flutter class options:
   Name for a generated class.
 - `-p` or `--package=<name>`
   Name of a package that provides a font. Used to provide a font through package dependency.
+- `--family-name=<name>`
+  Font family name used in generated `IconData`. Defaults to `Icomoon`.
+- `--font-file-name=<name>`
+  Font asset file name used in generated documentation. Defaults to `icomoon.ttf`.
 - `--[no-]format`
   Format dart generated code.
 
@@ -82,6 +89,8 @@ icomoon_generator:
 
   class_name: "MyIcons"
   package: my_font_package
+  family_name: Icomoon
+  font_file_name: icomoon.ttf
   format: true
 
   verbose: false
@@ -90,7 +99,13 @@ icomoon_generator:
 `input_json_file` and `output_class_file` keys are required.
 It's possible to specify any other config file by using `--config-file` option.
 
-## Structure `input_json_file` key
+## IcoMoon v1 and v2
+
+The generator accepts both IcoMoon JSON formats:
+
+### v1 — Legacy IcoMoon UI
+
+The legacy UI exports a selection file with `icons[].properties`:
 
 ```json
 {
@@ -98,30 +113,140 @@ It's possible to specify any other config file by using `--config-file` option.
     {
       "properties": {
         "name": "home",
-        "code": 01
+        "code": 59648
       }
     },
     {
       "properties": {
         "name": "home2",
-        "code": 02
+        "code": 59649
       }
     },
     {
       "properties": {
         "name": "home3",
-        "code": 03
+        "code": 59650
       }
     },
     {
       "properties": {
         "name": "office",
-        "code": 04
+        "code": 59651
+      }
+    }
+  ],
+  "metadata": {
+    "name": "untitled-project"
+  }
+}
+```
+
+The v1 workflow uses two matching local files:
+
+- `fonts/selection_v1.json`
+- `fonts/icomoon_v1.ttf`
+
+Generate the v1 class:
+
+```shell
+$ icomoon_generator \
+  fonts/selection_v1.json \
+  lib/my_icons_v1.dart \
+  --class-name=V1Icons \
+  --family-name=IcomoonV1 \
+  --font-file-name=icomoon_v1.ttf
+```
+
+Declare the v1 font:
+
+```yaml
+flutter:
+  fonts:
+    - family: IcomoonV1
+      fonts:
+        - asset: fonts/icomoon_v1.ttf
+```
+
+The generated `V1Icons` class must use `fontFamily: IcomoonV1`.
+
+### v2 — Current IcoMoon UI
+
+The v2 UI exports `glyphs[].extras` instead of `icons[].properties`:
+
+```json
+{
+  "formats": [
+    {
+      "item": {
+        "tag": "ItemFont"
+      }
+    }
+  ],
+  "glyphs": [
+    {
+      "extras": {
+        "name": "bookmark",
+        "codePoint": 128278
       }
     }
   ]
 }
 ```
+
+Download the v2 JSON to a local file before running the generator:
+
+```shell
+$ curl -fsSL \
+  https://i.icomoon.io/public/temp/<id>/<project>/0/<project>.icomoon.json \
+  -o fonts/selection.json
+$ icomoon_generator fonts/selection.json lib/my_icons_v2.dart
+```
+
+Download the matching v2 font from the same project and save it locally as
+`fonts/icomoon.ttf` before declaring it as a Flutter asset.
+
+Generate the v2 class:
+
+```shell
+$ icomoon_generator \
+  fonts/selection.json \
+  lib/my_icons_v2.dart \
+  --class-name=V2Icons \
+  --family-name=IcomoonV2 \
+  --font-file-name=icomoon.ttf
+```
+
+Declare the v2 font:
+
+```yaml
+flutter:
+  fonts:
+    - family: IcomoonV2
+      fonts:
+        - asset: fonts/icomoon.ttf
+```
+
+The generated `V2Icons` class must use `fontFamily: IcomoonV2`.
+
+### Using v1 and v2 together
+
+Keep each version's JSON, font, generated class, and font family separate:
+
+```text
+fonts/
+├── selection_v1.json
+├── icomoon_v1.ttf
+├── selection.json
+└── icomoon.ttf
+
+lib/
+├── my_icons_v1.dart  # V1Icons, IcomoonV1
+└── my_icons_v2.dart  # V2Icons, IcomoonV2
+```
+
+Always use the `.ttf` exported by the same IcoMoon project and selection as
+the JSON. Do not use the v1 font with v2 code points, or the v2 font with v1
+code points.
 
 ## Contributing
 

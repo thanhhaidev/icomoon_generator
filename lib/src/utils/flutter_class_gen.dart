@@ -205,7 +205,8 @@ class FlutterClassGenerator {
 
   bool get _hasPackage => _package != null;
 
-  String get _fontFamilyConst => "static const iconFontFamily = 'Icomoon';";
+  String get _fontFamilyConst =>
+      "static const iconFontFamily = '$_familyName';";
 
   String get _fontPackageConst => "static const iconFontPackage = '$_package';";
 

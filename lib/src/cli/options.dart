@@ -18,6 +18,16 @@ void defineOptions(ArgParser argParser) {
           'Name of a package that provides a font. Used to provide a font through package dependency.',
       valueHelp: 'name',
     )
+    ..addOption(
+      kOptionNames[CliArgument.familyName]!,
+      help: 'Font family name used by generated IconData.',
+      valueHelp: 'name',
+    )
+    ..addOption(
+      kOptionNames[CliArgument.fontFileName]!,
+      help: 'Font asset file name used in generated documentation.',
+      valueHelp: 'name',
+    )
     ..addFlag(
       kOptionNames[CliArgument.format]!,
       help: 'Formate dart generated code.',
