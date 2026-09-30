@@ -24,14 +24,33 @@ class Selection {
 
   /// Factory constructor
   factory Selection.fromJson(Map<String, dynamic> json) {
-    final icons = json['icons'] as List<dynamic>;
-    final name = json['metadata']['name'] as String;
+    final legacyIcons = json['icons'];
+    if (legacyIcons is List) {
+      final metadata = json['metadata'];
+      final name = metadata is Map ? metadata['name'] as String : '';
 
-    return Selection(
-      name: name,
-      icons: icons
-          .map((icon) => Icon.fromJson(icon as Map<String, dynamic>))
-          .toList(),
+      return Selection(
+        name: name,
+        icons: legacyIcons
+            .map((icon) => Icon.fromJson(icon as Map<String, dynamic>))
+            .toList(),
+      );
+    }
+
+    final glyphs = json['glyphs'];
+    if (glyphs is List) {
+      return Selection(
+        name: json['name'] as String? ?? '',
+        icons: glyphs
+            .map((glyph) => Icon.fromIcoMoonGlyph(
+                  glyph as Map<String, dynamic>,
+                ))
+            .toList(),
+      );
+    }
+
+    throw const FormatException(
+      'Unsupported IcoMoon JSON format: expected "icons" or "glyphs".',
     );
   }
 }
@@ -54,6 +73,18 @@ class Icon {
     final properties = json['properties'] as Map<String, dynamic>;
 
     return Icon(properties: IconProperties.fromJson(properties));
+  }
+
+  /// Creates an icon from the glyph shape emitted by the current IcoMoon UI.
+  factory Icon.fromIcoMoonGlyph(Map<String, dynamic> json) {
+    final extras = json['extras'] as Map<String, dynamic>;
+
+    return Icon(
+      properties: IconProperties(
+        name: extras['name'] as String,
+        code: extras['codePoint'] as int,
+      ),
+    );
   }
 }
 

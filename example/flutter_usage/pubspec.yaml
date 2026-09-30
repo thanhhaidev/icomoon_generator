@@ -19,15 +19,18 @@ dev_dependencies:
 
 flutter:
   fonts:
-    - family: Icomoon
+    - family: IcomoonV1
+      fonts:
+        - asset: fonts/icomoon_v1.ttf
+    - family: IcomoonV2
       fonts:
         - asset: fonts/icomoon.ttf
 
 icomoon_generator:
   input_json_file: fonts/selection.json
-  output_class_file: lib/ui/icons.dart
+  output_class_file: lib/ui/icons_v2.dart
 
-  class_name: UiIcons
+  class_name: V2Icons
   format: true
 
   verbose: false

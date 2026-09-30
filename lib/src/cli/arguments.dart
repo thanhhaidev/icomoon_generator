@@ -16,6 +16,8 @@ const _kArgAllowedTypes = <CliArgument, List<Type>>{
   CliArgument.classFile: [String],
   CliArgument.className: [String],
   CliArgument.fontPackage: [String],
+  CliArgument.familyName: [String],
+  CliArgument.fontFileName: [String],
   CliArgument.format: [bool],
   CliArgument.verbose: [bool],
   CliArgument.help: [bool],
@@ -28,6 +30,8 @@ const kDefaultFormat = false;
 const kOptionNames = EnumClass<CliArgument, String>({
   CliArgument.className: 'class-name',
   CliArgument.fontPackage: 'package',
+  CliArgument.familyName: 'family-name',
+  CliArgument.fontFileName: 'font-file-name',
   CliArgument.format: 'format',
   CliArgument.verbose: 'verbose',
   CliArgument.help: 'help',
@@ -39,6 +43,8 @@ const kConfigKeys = EnumClass<CliArgument, String>({
   CliArgument.classFile: 'output_class_file',
   CliArgument.className: 'class_name',
   CliArgument.fontPackage: 'package',
+  CliArgument.familyName: 'family_name',
+  CliArgument.fontFileName: 'font_file_name',
   CliArgument.format: 'format',
   CliArgument.verbose: 'verbose',
 });
@@ -56,6 +62,8 @@ enum CliArgument {
   // Class-related
   className,
   fontPackage,
+  familyName,
+  fontFileName,
   format,
 
   // Others
@@ -73,6 +81,8 @@ class CliArguments {
     this.classFile,
     this.className,
     this.fontPackage,
+    this.familyName,
+    this.fontFileName,
     this.format,
     this.verbose,
     this.configFile,
@@ -90,6 +100,8 @@ class CliArguments {
       map[CliArgument.classFile] as File,
       map[CliArgument.className] as String?,
       map[CliArgument.fontPackage] as String?,
+      map[CliArgument.familyName] as String?,
+      map[CliArgument.fontFileName] as String?,
       map[CliArgument.format] as bool?,
       map[CliArgument.verbose] as bool?,
       map[CliArgument.configFile] as File?,
@@ -100,6 +112,8 @@ class CliArguments {
   final File classFile;
   final String? className;
   final String? fontPackage;
+  final String? familyName;
+  final String? fontFileName;
   final bool? format;
   final bool? verbose;
   final File? configFile;

@@ -49,6 +49,13 @@ void _run(CliArguments parsedArgs) {
     logger.setFilterLevel(Level.trace);
   }
 
+  if (!parsedArgs.jsonFile.existsSync()) {
+    logger.e('Input JSON file does not exist (${parsedArgs.jsonFile.path})');
+    exit(66);
+  } else {
+    logger.t('Input JSON file: ${parsedArgs.jsonFile.path} found');
+  }
+
   if (!parsedArgs.classFile.existsSync()) {
     parsedArgs.classFile.createSync(recursive: true);
   } else {
@@ -57,16 +64,8 @@ void _run(CliArguments parsedArgs) {
         'overwriting it');
   }
 
-  if (!parsedArgs.jsonFile.existsSync()) {
-    logger.e('Font file does not exist (${parsedArgs.jsonFile.path})');
-    exit(66);
-  } else {
-    logger.t('Font file: ${parsedArgs.jsonFile.path} found');
-  }
-
   try {
-    File iconsJson = parsedArgs.jsonFile;
-    final String rawJson = iconsJson.readAsStringSync();
+    final String rawJson = parsedArgs.jsonFile.readAsStringSync();
     final selection = Selection.fromJson(
       jsonDecode(rawJson) as Map<String, dynamic>,
     );
@@ -75,6 +74,8 @@ void _run(CliArguments parsedArgs) {
       iconsList: selection.icons,
       className: parsedArgs.className,
       package: parsedArgs.fontPackage,
+      familyName: parsedArgs.familyName,
+      fontFileName: parsedArgs.fontFileName,
     );
 
     if (parsedArgs.format ?? kDefaultFormat) {

@@ -1,3 +1,14 @@
+## 2.0.0
+
+- Support the current IcoMoon JSON format (`glyphs[].extras`) in addition to
+  the legacy `icons[].properties` format.
+- Support both legacy and current IcoMoon JSON formats from local files.
+- Add configurable generated font family and font file names for projects
+  that use multiple IcoMoon exports.
+- Rename the documented Dart executable to `generator`.
+- Refresh package lockfiles to current resolvable dependency versions without
+  changing the public SDK or dependency constraints.
+
 ## 1.0.3
 
 - Fix analysis issue

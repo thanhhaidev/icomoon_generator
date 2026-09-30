@@ -1,7 +1,7 @@
 // Generated code: do not hand-edit.
 
 // Generated using icomoon_generator.
-// Copyright © 2025 icomoon_generator (https://pub.dev/packages/icomoon_generator).
+// Copyright © 2026 icomoon_generator (https://pub.dev/packages/icomoon_generator).
 
 import 'package:flutter/widgets.dart';
 
@@ -19,14 +19,14 @@ import 'package:flutter/widgets.dart';
 /// ```yaml
 /// flutter:
 ///   fonts:
-///     - family: Icomoon
+///     - family: IcomoonV1
 ///       fonts:
-///         - asset: fonts/icomoon.ttf
+///         - asset: fonts/icomoon_v1.ttf
 /// ```
-class UiIcons {
-  const UiIcons._();
+class V1Icons {
+  const V1Icons._();
 
-  static const iconFontFamily = 'Icomoon';
+  static const iconFontFamily = 'IcomoonV1';
 
   /// Font icon named "__home__"
   static const IconData home = IconData(0xe900, fontFamily: iconFontFamily);
